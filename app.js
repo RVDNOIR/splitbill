@@ -137,13 +137,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CLOUD DATABASE (FIRESTORE) ---
 
     const listenToDatabase = () => {
-        const q = db.collection('recap_splitbill').orderBy('date', 'desc');
+        // Filter query to ONLY fetch data belonging to the current user
+        const q = db.collection('recap_splitbill').where('userId', '==', currentUser.uid);
         
         unsubscribeSnapshot = q.onSnapshot((snapshot) => {
             cloudRecords = [];
             snapshot.forEach((doc) => {
                 cloudRecords.push({ id: doc.id, ...doc.data() });
             });
+            
+            // Sort locally to avoid needing a Firestore Composite Index
+            cloudRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
             updateFilterOptions();
             renderRecap();
         }, (error) => {

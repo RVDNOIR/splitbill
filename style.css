@@ -1,0 +1,30 @@
+/* Glassmorphism utility */
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+/* Hide spin buttons on number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Tip button active state */
+.tip-btn.active-tip {
+    background-color: #2B32A8; /* Dark Blue */
+    color: white;
+    border-color: #2B32A8;
+    box-shadow: 0 4px 14px 0 rgba(43, 50, 168, 0.39);
+    transform: translateY(-2px);
+}
+
+/* Smooth transition for input changes */
+input {
+    transition: all 0.3s ease;
+}
